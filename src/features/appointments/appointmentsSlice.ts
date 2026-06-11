@@ -43,22 +43,22 @@ const appointmentsSlice = createSlice({
   name: 'appointments',
   initialState,
 
-  reducers: {
-    // Select one appointment (for detail view later)
-    setSelectedId(state, action: PayloadAction<string | null>) {
-      state.selectedId = action.payload;
-    },
-
-    // Cancel an appointment by id
-    cancelAppointment(state, action: PayloadAction<string>) {
-      const appointment = state.items.find(
-        (item) => item.id === action.payload
-      );
-      if (appointment) {
-        appointment.status = 'cancelled';
-      }
-    },
+reducers: {
+  setSelectedId(state, action: PayloadAction<string | null>) {
+    state.selectedId = action.payload;
   },
+  cancelAppointment(state, action: PayloadAction<string>) {
+    const appointment = state.items.find(
+      (item) => item.id === action.payload
+    );
+    if (appointment) {
+      appointment.status = 'cancelled';
+    }
+  },
+  addAppointment(state, action: PayloadAction<Appointment>) {
+    state.items.unshift(action.payload);
+  },
+},
 
   extraReducers: (builder) => {
     builder
@@ -80,5 +80,6 @@ const appointmentsSlice = createSlice({
   },
 });
 
-export const { setSelectedId, cancelAppointment } = appointmentsSlice.actions;
+
+export const { setSelectedId, cancelAppointment, addAppointment } = appointmentsSlice.actions;
 export default appointmentsSlice.reducer;

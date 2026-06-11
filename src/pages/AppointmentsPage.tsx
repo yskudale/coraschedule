@@ -13,6 +13,8 @@ import { fetchAppointments, cancelAppointment } from '@/features/appointments/ap
 import type { AppointmentFilters, AppointmentStatus, TherapyType } from '@/features/appointments/types/index';
 import styles from './AppointmentsPage.module.scss';
 
+import { BookingModal } from '@/components/booking/BookingModal';
+
 // ─── Initial filter state ─────────────────────────────────────────────────────
 const initialFilters: AppointmentFilters = {
   search:      '',
@@ -28,6 +30,7 @@ export default function AppointmentsPage() {
 
   // Local UI state — filters live here, not in Redux
   const [filters, setFilters] = useState<AppointmentFilters>(initialFilters);
+  const [showBooking, setShowBooking] = useState(false);
 
   // Fetch appointments when page first loads
   useEffect(() => {
@@ -101,9 +104,9 @@ export default function AppointmentsPage() {
           <h1>Appointments</h1>
           <p>Manage and track all your therapy sessions</p>
         </div>
-        <button className={styles.bookBtn}>
-          <Plus size={18} />
-          Book Appointment
+        <button className={styles.bookBtn}  onClick={() => setShowBooking(true)}>
+        <Plus size={18} />
+        Book Appointment
         </button>
       </div>
 
@@ -225,6 +228,10 @@ export default function AppointmentsPage() {
         )}
 
       </div>
+ {showBooking && (
+        <BookingModal onClose={() => setShowBooking(false)} />
+      )}
+
     </div>
   );
 }
