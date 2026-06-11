@@ -1,0 +1,68 @@
+// StepIndicator.module.scss
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md $spacing-xl;
+  border-bottom: 1px solid $color-border;
+  background: $color-bg-light;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  flex-shrink: 0;
+  transition: all $transition-base;
+  border: 2px solid $color-border;
+  color: $color-text-muted;
+  background: $color-white;
+}
+
+.circleActive {
+  border-color: $color-accent;
+  background: $color-accent;
+  color: $color-white;
+}
+
+.circleDone {
+  border-color: $color-primary;
+  background: $color-primary;
+  color: $color-white;
+}
+
+.label {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  margin-left: $spacing-sm;
+  white-space: nowrap;
+  font-weight: $font-weight-medium;
+}
+
+.labelActive {
+  color: $color-primary-dark;
+  font-weight: $font-weight-semibold;
+}
+
+.line {
+  flex: 1;
+  height: 2px;
+  background: $color-border;
+  margin: 0 $spacing-sm;
+  transition: background $transition-base;
+}
+
+.lineDone {
+  background: $color-primary;
+}
