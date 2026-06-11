@@ -1,0 +1,69 @@
+// ============================================
+// CORA Physical Therapy — Design System Tokens
+// ============================================
+
+// Brand Colors
+$color-primary:       #0d4a5a;
+$color-primary-dark:  #083a47;
+$color-primary-light: #155e73;
+$color-accent:        #8dc63f;
+$color-accent-hover:  #7ab030;
+
+// Neutrals
+$color-white:         #ffffff;
+$color-bg-light:      #e8f0f3;
+$color-bg-page:       #0d4a5a;
+$color-border:        #c8d8de;
+$color-text:          #1a2e35;
+$color-text-muted:    #607d8b;
+
+// Semantic
+$color-success:       #4caf50;
+$color-warning:       #ff9800;
+$color-danger:        #f44336;
+$color-info:          #2196f3;
+
+// Typography
+$font-family:          'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-size-xs:         12px;
+$font-size-sm:         14px;
+$font-size-base:       16px;
+$font-size-md:         18px;
+$font-size-lg:         20px;
+$font-size-xl:         24px;
+$font-size-2xl:        32px;
+$font-weight-regular:  400;
+$font-weight-medium:   500;
+$font-weight-semibold: 600;
+$font-weight-bold:     700;
+
+// Spacing
+$spacing-xs:  4px;
+$spacing-sm:  8px;
+$spacing-md:  16px;
+$spacing-lg:  24px;
+$spacing-xl:  32px;
+$spacing-2xl: 48px;
+$spacing-3xl: 64px;
+
+// Borders & Shadows
+$border-radius-sm:  4px;
+$border-radius:     8px;
+$border-radius-lg:  12px;
+$border-radius-xl:  16px;
+$border-radius-pill: 999px;
+
+$shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.12);
+$shadow-md:   0 4px 16px rgba(0, 0, 0, 0.12);
+$shadow-lg:   0 8px 32px rgba(0, 0, 0, 0.16);
+$shadow-card: 0 2px 12px rgba(0, 0, 0, 0.08);
+
+// Transitions
+$transition-fast: 0.15s ease;
+$transition-base: 0.25s ease;
+
+// Breakpoints
+$bp-sm:  576px;
+$bp-md:  768px;
+$bp-lg:  1024px;
+$bp-xl:  1280px;
