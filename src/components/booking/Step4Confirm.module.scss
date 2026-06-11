@@ -1,0 +1,142 @@
+// Step4Confirm.module.scss
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+}
+
+.successBanner {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-md $spacing-lg;
+  background: rgba($color-success, 0.08);
+  border: 1px solid rgba($color-success, 0.25);
+  border-radius: $border-radius-lg;
+  color: $color-success;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+}
+
+.summaryCard {
+  background: $color-bg-light;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+}
+
+.summaryHeader {
+  background: $color-primary;
+  padding: $spacing-md $spacing-lg;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.summaryHeaderTitle {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-white;
+}
+
+.summaryBody {
+  padding: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.summaryRow {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-md;
+  padding-bottom: $spacing-md;
+  border-bottom: 1px solid $color-border;
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.rowIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: $border-radius;
+  background: $color-white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-primary;
+  flex-shrink: 0;
+  box-shadow: $shadow-sm;
+}
+
+.rowContent {
+  flex: 1;
+}
+
+.rowLabel {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.rowValue {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-primary-dark;
+}
+
+.rowSub {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  margin-top: 2px;
+}
+
+// ── Notes field ───────────────────────────────────────────────────────────────
+.notesSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.notesLabel {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text;
+}
+
+.notesInput {
+  width: 100%;
+  padding: $spacing-md;
+  border: 1.5px solid $color-border;
+  border-radius: $border-radius;
+  font-size: $font-size-sm;
+  color: $color-text;
+  background: $color-white;
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  font-family: $font-family;
+  transition: border-color $transition-fast;
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.12);
+  }
+
+  &::placeholder {
+    color: $color-text-muted;
+  }
+}
+
+.disclaimer {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  line-height: 1.5;
+  text-align: center;
+  padding: 0 $spacing-md;
+}

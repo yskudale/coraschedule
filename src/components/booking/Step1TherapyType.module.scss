@@ -1,0 +1,103 @@
+// Step1TherapyType.module.scss
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.heading {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: $spacing-sm;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+  padding: $spacing-lg;
+  border: 2px solid $color-border;
+  border-radius: $border-radius-lg;
+  cursor: pointer;
+  transition: all $transition-fast;
+  background: $color-white;
+  text-align: left;
+  width: 100%;
+
+  &:hover {
+    border-color: $color-primary-light;
+    background: rgba($color-primary, 0.03);
+  }
+}
+
+.cardSelected {
+  border-color: $color-accent;
+  background: rgba($color-accent, 0.05);
+
+  &:hover {
+    border-color: $color-accent;
+    background: rgba($color-accent, 0.08);
+  }
+}
+
+.iconWrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: $border-radius-lg;
+  background: $color-bg-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 28px;
+  transition: background $transition-fast;
+}
+
+.iconWrapperSelected {
+  background: rgba($color-accent, 0.15);
+}
+
+.cardContent {
+  flex: 1;
+}
+
+.cardTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-primary-dark;
+  margin-bottom: $spacing-xs;
+}
+
+.cardDesc {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  line-height: 1.5;
+}
+
+.checkCircle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid $color-border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all $transition-fast;
+}
+
+.checkCircleSelected {
+  background: $color-accent;
+  border-color: $color-accent;
+  color: $color-white;
+}
