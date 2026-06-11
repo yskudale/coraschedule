@@ -1,5 +1,7 @@
 // LoginPage.module.scss
 
+
+
 .page {
   min-height: 100vh;
   display: flex;
@@ -154,8 +156,7 @@
   border-radius: $border-radius;
   padding: $spacing-sm $spacing-md;
   font-size: $font-size-xs;
-  color: darken($color-accent, 20%);
-  margin-bottom: $spacing-lg;
+  color: #5a7e1f;  margin-bottom: $spacing-lg;
 
   strong {
     font-weight: $font-weight-semibold;
@@ -212,7 +213,7 @@
   }
 
   &::placeholder {
-    color: lighten($color-text-muted, 15%);
+    color: #90a4ae;
   }
 }
 
@@ -255,7 +256,7 @@
   border: 1px solid rgba($color-danger, 0.25);
   border-radius: $border-radius;
   font-size: $font-size-sm;
-  color: darken($color-danger, 10%);
+  color: #d32f2f;
 }
 
 // ── Submit Button ─────────────────────────────────────────────────────────────
