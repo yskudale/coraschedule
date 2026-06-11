@@ -1,0 +1,319 @@
+// LoginPage.module.scss
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  background: $color-primary;
+}
+
+// ── Left: Brand Panel ─────────────────────────────────────────────────────────
+.brand {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3xl $spacing-2xl;
+  background: linear-gradient(
+    135deg,
+    $color-primary-dark 0%,
+    $color-primary 60%,
+    $color-primary-light 100%
+  );
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    right: -60px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 80px;
+    left: -40px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: rgba($color-accent, 0.15);
+  }
+}
+
+.brandInner {
+  max-width: 440px;
+  z-index: 1;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  margin-bottom: $spacing-2xl;
+}
+
+.logoIcon {
+  width: 52px;
+  height: 52px;
+  background: $color-accent;
+  border-radius: $border-radius;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-white;
+}
+
+.logoText {
+  display: block;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-white;
+  letter-spacing: 0.1em;
+}
+
+.logoSub {
+  display: block;
+  font-size: $font-size-xs;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tagline {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-white;
+  line-height: 1.25;
+  margin-bottom: $spacing-lg;
+}
+
+.taglineSub {
+  font-size: $font-size-sm;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin-bottom: $spacing-2xl;
+}
+
+.services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.serviceTag {
+  padding: $spacing-xs $spacing-md;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: $border-radius-pill;
+  font-size: $font-size-xs;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: $font-weight-medium;
+}
+
+// ── Right: Form Panel ─────────────────────────────────────────────────────────
+.formPanel {
+  width: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-2xl $spacing-lg;
+  background: $color-bg-light;
+  flex-shrink: 0;
+}
+
+.card {
+  width: 100%;
+  max-width: 380px;
+}
+
+.cardHeader {
+  margin-bottom: $spacing-lg;
+}
+
+.cardTitle {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-primary-dark;
+  margin-bottom: $spacing-xs;
+}
+
+.cardSub {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+}
+
+.hint {
+  background: rgba($color-accent, 0.12);
+  border: 1px solid rgba($color-accent, 0.3);
+  border-radius: $border-radius;
+  padding: $spacing-sm $spacing-md;
+  font-size: $font-size-xs;
+  color: darken($color-accent, 20%);
+  margin-bottom: $spacing-lg;
+
+  strong {
+    font-weight: $font-weight-semibold;
+  }
+}
+
+// ── Form Fields ───────────────────────────────────────────────────────────────
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: $spacing-md;
+  color: $color-text-muted;
+  pointer-events: none;
+}
+
+.input {
+  width: 100%;
+  height: 48px;
+  padding: 0 $spacing-md 0 42px;
+  border: 1.5px solid $color-border;
+  border-radius: $border-radius;
+  font-size: $font-size-sm;
+  color: $color-text;
+  background: $color-white;
+  outline: none;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.12);
+  }
+
+  &::placeholder {
+    color: lighten($color-text-muted, 15%);
+  }
+}
+
+.inputError {
+  border-color: $color-danger;
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba($color-danger, 0.12);
+  }
+}
+
+.eyeBtn {
+  position: absolute;
+  right: $spacing-md;
+  color: $color-text-muted;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+.errorMsg {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: $font-size-xs;
+  color: $color-danger;
+}
+
+.apiError {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm $spacing-md;
+  background: rgba($color-danger, 0.08);
+  border: 1px solid rgba($color-danger, 0.25);
+  border-radius: $border-radius;
+  font-size: $font-size-sm;
+  color: darken($color-danger, 10%);
+}
+
+// ── Submit Button ─────────────────────────────────────────────────────────────
+.submitBtn {
+  height: 52px;
+  background: $color-accent;
+  color: $color-white;
+  border-radius: $border-radius;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.02em;
+  transition: background $transition-fast, transform $transition-fast;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: $spacing-sm;
+
+  &:hover:not(:disabled) {
+    background: $color-accent-hover;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.btnSpinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: $color-white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ── Footer ────────────────────────────────────────────────────────────────────
+.footer {
+  text-align: center;
+  margin-top: $spacing-lg;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+}
+
+.link {
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-accent;
+  }
+}

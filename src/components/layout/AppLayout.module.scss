@@ -1,0 +1,154 @@
+// AppLayout.module.scss
+
+.shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+// ── Sidebar ───────────────────────────────────────────────────────────────────
+.sidebar {
+  width: 260px;
+  background: $color-primary-dark;
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-lg 0;
+  flex-shrink: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: 0 $spacing-lg $spacing-xl;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.logoIcon {
+  width: 40px;
+  height: 40px;
+  background: $color-accent;
+  border-radius: $border-radius;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-white;
+  flex-shrink: 0;
+}
+
+.logoText {
+  display: block;
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-white;
+  letter-spacing: 0.1em;
+}
+
+.logoSub {
+  display: block;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+// ── Navigation ────────────────────────────────────────────────────────────────
+.nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  padding: $spacing-lg 0;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: 12px $spacing-lg;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  border-left: 3px solid transparent;
+  transition: background $transition-fast, color $transition-fast;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: $color-white;
+  }
+}
+
+.navItemActive {
+  background: rgba($color-accent, 0.15);
+  color: $color-accent;
+  border-left-color: $color-accent;
+}
+
+// ── Sidebar Footer ────────────────────────────────────────────────────────────
+.sidebarFooter {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-lg;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  flex: 1;
+  min-width: 0;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+}
+
+.userText {
+  min-width: 0;
+}
+
+.userName {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userRole {
+  font-size: $font-size-xs;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: capitalize;
+}
+
+.logoutBtn {
+  color: rgba(255, 255, 255, 0.5);
+  padding: $spacing-sm;
+  border-radius: $border-radius;
+  transition: background $transition-fast, color $transition-fast;
+  flex-shrink: 0;
+
+  &:hover {
+    background: rgba($color-danger, 0.15);
+    color: lighten($color-danger, 10%);
+  }
+}
+
+// ── Main Content ──────────────────────────────────────────────────────────────
+.main {
+  flex: 1;
+  background: #f4f7f9;
+  overflow-y: auto;
+}
