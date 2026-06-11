@@ -10,14 +10,15 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { ProtectedRoute } from './ProtectedRoute';
-import { PageSpinner } from '@/components/ui/PageSpinner';
+import { PageSpinner } from '../components/ui/PageSpinner';
 
 // ─── Lazy load every page ─────────────────────────────────────────────────────
 // These are NOT imported normally — each becomes a separate JS chunk.
 // The chunk downloads only when the user first visits that route.
-const LoginPage     = lazy(() => import('@/pages/LoginPage'));
-const DashboardPage = lazy(() => import('@/pages/DashboardPage'));
-const AppLayout     = lazy(() => import('@/components/layout/AppLayout'));
+const LoginPage     = lazy(() => import('../pages/LoginPage'));
+const DashboardPage = lazy(() => import('../pages/DashboardPage'));
+const AppLayout     = lazy(() => import('../components/layout/AppLayout'));
+const AppointmentsPage = lazy(() => import('../pages/AppointmentsPage'));
 
 // ─── Suspense wrapper ─────────────────────────────────────────────────────────
 // Reusable wrapper — every lazy page needs this
@@ -62,6 +63,7 @@ export const router = createBrowserRouter([
               </SuspenseWrapper>
             ),
           },
+          { path: 'appointments', element: <SuspenseWrapper><AppointmentsPage /></SuspenseWrapper> },
         ],
       },
     ],
