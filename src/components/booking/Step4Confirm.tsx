@@ -6,42 +6,54 @@
 // On confirm — dispatches to Redux store.
 // ============================================
 
+import { useEffect } from 'react';
 import { CheckCircle, Activity, MapPin, User, Calendar, Clock } from 'lucide-react';
 import { useBooking } from '@/features/booking/context/BookingContext';
 import { useAppDispatch } from '@/hooks/redux';
 import { addAppointment } from '@/features/appointments/appointmentsSlice';
 import type { Appointment } from '@/features/appointments/types/index';
 import styles from './Step4Confirm.module.scss';
+import { useAppSelector } from '@/hooks/redux';
+
+import { DEFAULT_APPOINTMENT_DURATION } from '@/constants';
+
 
 interface Step4ConfirmProps {
-  onConfirm: () => void;
+  onConfirm:      () => void;
+  triggerConfirm: boolean;
+  onTriggerDone:  () => void;
 }
 
-export function Step4Confirm({ onConfirm }: Step4ConfirmProps) {
+export function Step4Confirm({ onConfirm, triggerConfirm, onTriggerDone }: Step4ConfirmProps) {
   const { formData, updateForm } = useBooking();
   const dispatch = useAppDispatch();
 
-  const handleConfirm = () => {
+  const user = useAppSelector((state) => state.auth.user);
+
+
+    useEffect(() => {
+    if (!triggerConfirm) return;
     // Build a new Appointment object from the booking form data
     const newAppointment: Appointment = {
       id:             `apt-${Date.now()}`,
-      patientName:    'John Smith',
+      patientName: user?.name ?? 'Guest',
       therapistName:  formData.therapist?.name    ?? '',
       therapyType:    formData.therapyType        ?? 'Physical Therapy',
       date:           formData.date,
       time:           formData.timeSlot?.time     ?? '',
-      duration:       60,
+      duration:       DEFAULT_APPOINTMENT_DURATION,
       status:         'scheduled',
       location:       formData.clinic?.name       ?? '',
       notes:          formData.notes || undefined,
     };
 
     // Add to Redux appointments store
+    console.log('dispatching addAppointment:', newAppointment);
     dispatch(addAppointment(newAppointment));
 
-    // Close the modal
+    onTriggerDone();
     onConfirm();
-  };
+  }, [triggerConfirm]);
 
   return (
     <div className={styles.wrapper}>

@@ -8,13 +8,10 @@
 
 import { Check } from 'lucide-react';
 import styles from './StepIndicator.module.scss';
+import { BOOKING_STEPS } from '@/constants';
 
-const STEP_LABELS = [
-  'Therapy Type',
-  'Clinic & Therapist',
-  'Date & Time',
-  'Confirm',
-];
+
+const STEP_LABELS = BOOKING_STEPS.map((s) => s.label);
 
 interface StepIndicatorProps {
   currentStep: number;

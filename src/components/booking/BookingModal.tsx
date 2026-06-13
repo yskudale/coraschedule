@@ -5,6 +5,7 @@
 // Wraps everything in BookingProvider so all
 // steps share the same form state.
 // ============================================
+import { useState } from 'react';
 
 import { X, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import { BookingProvider, useBooking } from '@/features/booking/context/BookingContext';
@@ -15,13 +16,11 @@ import { Step3DateTime } from './Step3DateTime';
 import { Step4Confirm } from './Step4Confirm';
 import styles from './BookingModal.module.scss';
 
+import { BOOKING_STEPS } from '@/constants';
+
 // ─── Step titles shown in modal header ───────────────────────────────────────
-const STEP_TITLES = [
-  { title: 'Select Therapy Type',    sub: 'What kind of therapy do you need?' },
-  { title: 'Clinic & Therapist',     sub: 'Choose your preferred location and therapist' },
-  { title: 'Date & Time',            sub: 'Pick an available appointment slot' },
-  { title: 'Review & Confirm',       sub: 'Check your details before confirming' },
-];
+const STEP_TITLES = BOOKING_STEPS;
+
 
 // ─── Inner modal — uses useBooking hook ──────────────────────────────────────
 // Separate component because useBooking needs to be
@@ -29,6 +28,7 @@ const STEP_TITLES = [
 // component that renders the Provider.
 function ModalInner({ onClose }: { onClose: () => void }) {
   const { currentStep, formData, goNext, goBack, resetBooking } = useBooking();
+  const [triggerConfirm, setTriggerConfirm] = useState(false);
 
   const stepInfo  = STEP_TITLES[currentStep - 1];
   const isFirst   = currentStep === 1;
@@ -53,12 +53,21 @@ function ModalInner({ onClose }: { onClose: () => void }) {
   };
 
   // Render the correct step component
-  const renderStep = () => {
-    if (currentStep === 1) return <Step1TherapyType />;
-    if (currentStep === 2) return <Step2ClinicTherapist />;
-    if (currentStep === 3) return <Step3DateTime />;
-    return <Step4Confirm onConfirm={handleConfirm} />;
-  };
+const renderStep = () => {
+  if (currentStep === 1) return <Step1TherapyType />;
+  if (currentStep === 2) return <Step2ClinicTherapist />;
+  if (currentStep === 3) return <Step3DateTime />;
+  return (
+    <Step4Confirm
+      onConfirm={() => {
+        resetBooking();
+        onClose();
+      }}
+      triggerConfirm={triggerConfirm}
+      onTriggerDone={() => setTriggerConfirm(false)}
+    />
+  );
+};
 
   return (
     <div
@@ -116,7 +125,7 @@ function ModalInner({ onClose }: { onClose: () => void }) {
           {isLast && (
             <button
               className={styles.confirmBtn}
-              onClick={handleConfirm}
+              onClick={() => setTriggerConfirm(true)}
             >
               <Check size={16} />
               Confirm Booking

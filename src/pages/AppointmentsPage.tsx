@@ -27,10 +27,17 @@ export default function AppointmentsPage() {
   const { items, isLoading, error } = useAppSelector(
     (state) => state.appointments
   );
+  console.log('appointments in store:', items.length, items);
 
   // Local UI state — filters live here, not in Redux
   const [filters, setFilters] = useState<AppointmentFilters>(initialFilters);
   const [showBooking, setShowBooking] = useState(false);
+
+
+  const handleBookingClose = () => {
+    setShowBooking(false);
+    setFilters(initialFilters);
+    };
 
   // Fetch appointments when page first loads
   useEffect(() => {
@@ -229,7 +236,7 @@ export default function AppointmentsPage() {
 
       </div>
  {showBooking && (
-        <BookingModal onClose={() => setShowBooking(false)} />
+        <BookingModal onClose={handleBookingClose} />
       )}
 
     </div>

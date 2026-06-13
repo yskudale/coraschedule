@@ -3,11 +3,12 @@
 // The "auth drawer" in the central store.
 // Manages: user, token, loading, error state.
 // ============================================
-
+import client from '@/api/client';
+import { ENDPOINTS } from '@/api/endpoints';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { AuthState, LoginCredentials, LoginResponse, User } from './types/index';
-
+import { STORAGE_KEYS, DEMO_PASSWORD, MOCK_DELAY_MS } from '@/constants';
 // ─── Mock Data (replace with real API later) ─────────────────────────────────
 const MOCK_USERS: Record<string, LoginResponse> = {
   'patient@cora.com': {
@@ -24,27 +25,32 @@ const MOCK_USERS: Record<string, LoginResponse> = {
 export const loginUser = createAsyncThunk<LoginResponse, LoginCredentials, { rejectValue: string }>(
   'auth/loginUser',
   async (credentials, { rejectWithValue }) => {
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+  try {
+    // ── MOCK (replace with real API call when backend is ready) ──
+    // Real call will be:
+    // const { data } = await client.post<LoginResponse>(
+    //   ENDPOINTS.auth.login,
+    //   credentials
+    // );
+    // return data;
 
-      const match = MOCK_USERS[credentials.email];
-      if (!match || credentials.password !== 'cora123') {
-        return rejectWithValue('Invalid email or password.');
-      }
-
-      localStorage.setItem('cora_token', match.token);
-      localStorage.setItem('cora_user', JSON.stringify(match.user));
-
-      return match;
-    } catch {
-      return rejectWithValue('Something went wrong. Please try again.');
+    await new Promise((resolve) => setTimeout(resolve, MOCK_DELAY_MS));
+    const match = MOCK_USERS[credentials.email];
+    if (!match || credentials.password !== DEMO_PASSWORD) {
+      return rejectWithValue('Invalid email or password.');
     }
+    localStorage.setItem(STORAGE_KEYS.TOKEN, match.token);
+    localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(match.user));
+    return match;
+  } catch {
+    return rejectWithValue('Something went wrong. Please try again.');
   }
+}
 );
 
 // ─── Initial State ────────────────────────────────────────────────────────────
-const storedToken = localStorage.getItem('cora_token');
-const storedUser  = localStorage.getItem('cora_user');
+const storedToken = localStorage.getItem(STORAGE_KEYS.TOKEN);
+const storedUser  = localStorage.getItem(STORAGE_KEYS.USER);
 
 const initialState: AuthState = {
   user:            storedUser ? (JSON.parse(storedUser) as User) : null,
@@ -65,8 +71,8 @@ const authSlice = createSlice({
       state.token           = null;
       state.isAuthenticated = false;
       state.error           = null;
-      localStorage.removeItem('cora_token');
-      localStorage.removeItem('cora_user');
+      localStorage.removeItem(STORAGE_KEYS.TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.USER);
     },
     clearError(state) {
       state.error = null;
