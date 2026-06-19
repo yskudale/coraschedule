@@ -7,7 +7,7 @@
 
 import type { Appointment } from '../types/index';
 
-export const MOCK_APPOINTMENTS: Appointment[] = [
+export const MOCK_APPOINTMENTS: Appointment[] = [ 
   {
     id: 'apt-001',
     patientName: 'John Smith',

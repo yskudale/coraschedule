@@ -22,6 +22,25 @@
   color: $color-text-muted;
 }
 
+// ── Loading ───────────────────────────────────────────────────────────────────
+.loading {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-2xl;
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+}
+
+.loadingIcon {
+  color: $color-accent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 // ── Stat Cards ────────────────────────────────────────────────────────────────
 .statsGrid {
   display: grid;
@@ -39,11 +58,17 @@
   gap: $spacing-md;
   box-shadow: $shadow-card;
   border-left: 4px solid transparent;
+  transition: transform $transition-fast, box-shadow $transition-fast;
 
-  &__teal  { border-left-color: $color-primary; }
-  &__blue  { border-left-color: $color-info; }
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &__teal { border-left-color: $color-primary; }
+  &__blue { border-left-color: $color-info; }
   &__green { border-left-color: $color-success; }
-  &__lime  { border-left-color: $color-accent; }
+  &__red  { border-left-color: $color-danger; }
 }
 
 .statIcon {
@@ -71,27 +96,179 @@
   margin-top: 2px;
 }
 
-// ── Coming Soon ───────────────────────────────────────────────────────────────
-.comingSoon {
+// ── Recent Appointments ───────────────────────────────────────────────────────
+.recentSection {
   background: $color-white;
   border-radius: $border-radius-lg;
-  padding: $spacing-3xl $spacing-2xl;
-  text-align: center;
   box-shadow: $shadow-card;
+  overflow: hidden;
+}
 
-  h3 {
-    font-size: $font-size-lg;
-    color: $color-primary-dark;
-    margin: $spacing-md 0 $spacing-sm;
-  }
+.recentHeader {
+  padding: $spacing-lg $spacing-xl;
+  border-bottom: 1px solid $color-border;
+}
 
-  p {
-    font-size: $font-size-sm;
+.recentTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-primary-dark;
+  margin-bottom: 2px;
+}
+
+.recentSub {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+}
+
+// ── Table ─────────────────────────────────────────────────────────────────────
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableHead {
+  background: $color-bg-light;
+
+  th {
+    padding: $spacing-md $spacing-lg;
+    text-align: left;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
     color: $color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
   }
 }
 
-.comingSoonIcon {
-  color: $color-accent;
-  opacity: 0.7;
+.tableRow {
+  border-top: 1px solid $color-border;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: rgba($color-primary, 0.03);
+  }
+
+  td {
+    padding: $spacing-md $spacing-lg;
+    font-size: $font-size-sm;
+    color: $color-text;
+    vertical-align: middle;
+  }
+}
+
+.dateCell {
+  font-weight: $font-weight-medium;
+  color: $color-primary-dark;
+}
+
+.timeCell {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  margin-top: 2px;
+}
+
+.therapyType {
+  font-size: $font-size-xs;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+// ── Status Badge ──────────────────────────────────────────────────────────────
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: $border-radius-pill;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  text-transform: capitalize;
+  white-space: nowrap;
+
+  &__scheduled {
+    background: rgba($color-info, 0.12);
+    color: $color-info;
+  }
+
+  &__completed {
+    background: rgba($color-success, 0.12);
+    color: $color-success;
+  }
+
+  &__cancelled {
+    background: rgba($color-danger, 0.12);
+    color: $color-danger;
+  }
+
+  &__inProgress {
+    background: rgba($color-warning, 0.12);
+    color: $color-warning;
+  }
+}
+
+// ── Pagination ────────────────────────────────────────────────────────────────
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-md $spacing-xl;
+  border-top: 1px solid $color-border;
+}
+
+.pageBtn {
+  padding: 8px $spacing-md;
+  border-radius: $border-radius;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-primary;
+  border: 1.5px solid $color-border;
+  transition: all $transition-fast;
+
+  &:hover:not(:disabled) {
+    border-color: $color-primary;
+    background: rgba($color-primary, 0.05);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.pageNumbers {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.pageNumber {
+  width: 36px;
+  height: 36px;
+  border-radius: $border-radius;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-muted;
+  border: 1.5px solid transparent;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $color-bg-light;
+    color: $color-primary;
+  }
+}
+
+.pageNumberActive {
+  background: $color-primary;
+  color: $color-white;
+  border-color: $color-primary;
+
+  &:hover {
+    background: $color-primary-dark;
+    color: $color-white;
+  }
 }

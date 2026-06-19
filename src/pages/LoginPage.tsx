@@ -92,9 +92,11 @@ export default function LoginPage() {
           </div>
 
           {/* Demo credentials hint */}
-          <div className={styles.hint}>
-            <strong>Demo login:</strong> patient@cora.com / cora123
-          </div>
+          {import.meta.env.DEV && (
+            <div className={styles.hint}>
+              <strong>Demo login:</strong> patient@cora.com / cora123
+            </div>
+          )}
 
           <form
             onSubmit={handleSubmit(onSubmit)}

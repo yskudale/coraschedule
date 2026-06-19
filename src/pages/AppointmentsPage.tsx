@@ -8,6 +8,7 @@
 
 import { useEffect, useState, useMemo } from 'react';
 import { Plus, Search, Calendar } from 'lucide-react';
+import { StatusBadge } from '@/components/ui/StatusBadge';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { fetchAppointments, cancelAppointment } from '@/features/appointments/appointmentsSlice';
 import type { AppointmentFilters, AppointmentStatus, TherapyType } from '@/features/appointments/types/index';
@@ -27,10 +28,16 @@ export default function AppointmentsPage() {
   const { items, isLoading, error } = useAppSelector(
     (state) => state.appointments
   );
+  
 
   // Local UI state — filters live here, not in Redux
   const [filters, setFilters] = useState<AppointmentFilters>(initialFilters);
   const [showBooking, setShowBooking] = useState(false);
+
+
+ const handleBookingClose = () => {
+  setShowBooking(false);
+};
 
   // Fetch appointments when page first loads
   useEffect(() => {
@@ -83,16 +90,7 @@ export default function AppointmentsPage() {
     dispatch(cancelAppointment(id));
   };
 
-  // ── Badge class helper ───────────────────────────────────────────────────────
-  const getBadgeClass = (status: string) => {
-    const map: Record<string, string> = {
-      scheduled:   styles['badge__scheduled'],
-      completed:   styles['badge__completed'],
-      cancelled:   styles['badge__cancelled'],
-      'in-progress': styles['badge__inProgress'],
-    };
-    return `${styles.badge} ${map[status] ?? ''}`;
-  };
+
 
   // ── Render ───────────────────────────────────────────────────────────────────
   return (
@@ -205,9 +203,7 @@ export default function AppointmentsPage() {
                   </td>
 
                   <td>
-                    <span className={getBadgeClass(apt.status)}>
-                      {apt.status}
-                    </span>
+                    <StatusBadge status={apt.status} />
                   </td>
 
                   <td>
@@ -229,7 +225,7 @@ export default function AppointmentsPage() {
 
       </div>
  {showBooking && (
-        <BookingModal onClose={() => setShowBooking(false)} />
+        <BookingModal onClose={handleBookingClose} />
       )}
 
     </div>

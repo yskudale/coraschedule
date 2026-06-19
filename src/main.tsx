@@ -10,11 +10,15 @@
 
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { RouterProvider } from 'react-router-dom';
+// import { RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from '@/store';
-import { router } from '@/router';
 import '@/styles/main.scss';
+import App from './App';
+
+
+
+
 
 const root = document.getElementById('root');
 if (!root) throw new Error('Root element #root not found in index.html');
@@ -22,7 +26,7 @@ if (!root) throw new Error('Root element #root not found in index.html');
 createRoot(root).render(
   <StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <App />
     </Provider>
   </StrictMode>
 );

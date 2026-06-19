@@ -7,7 +7,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { LayoutDashboard, Calendar, LogOut, User } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { logout } from '@/features/auth/authSlice';
+import { logoutUser } from '@/features/auth/authSlice';
 import styles from './AppLayout.module.scss';
 
 export default function AppLayout() {
@@ -65,7 +65,8 @@ export default function AppLayout() {
           </div>
           <button
             className={styles.logoutBtn}
-            onClick={() => dispatch(logout())}
+            onClick={() => dispatch(logoutUser())}
+
             aria-label="Logout"
           >
             <LogOut size={18} />

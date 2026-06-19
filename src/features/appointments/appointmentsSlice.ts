@@ -10,6 +10,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { AppointmentsState, Appointment } from './types/index';
 import { MOCK_APPOINTMENTS } from './mock/appointments';
+import { MOCK_DELAY_MS } from '@/constants';
+
 
 // ─── Async Thunk: fetchAppointments ──────────────────────────────────────────
 // Simulates an API call to load appointments.
@@ -20,14 +22,20 @@ export const fetchAppointments = createAsyncThunk<
   { rejectValue: string }>(
   'appointments/fetchAppointments',
   async (_, { rejectWithValue }) => {
-    try {
-      // Simulate network delay
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      return MOCK_APPOINTMENTS;
-    } catch {
-      return rejectWithValue('Failed to load appointments.');
-    }
+  try {
+    // ── MOCK (replace with real API call when backend is ready) ──
+    // Real call will be:
+    // const { data } = await client.get<Appointment[]>(
+    //   ENDPOINTS.appointments.list
+    // );
+    // return data;
+
+    await new Promise((resolve) => setTimeout(resolve, MOCK_DELAY_MS));
+    return MOCK_APPOINTMENTS;
+  } catch {
+    return rejectWithValue('Failed to load appointments.');
   }
+}
 );
 
 // ─── Initial State ────────────────────────────────────────────────────────────
@@ -56,7 +64,7 @@ reducers: {
     }
   },
   addAppointment(state, action: PayloadAction<Appointment>) {
-    state.items.unshift(action.payload);
+    state.items = [action.payload, ...state.items];
   },
 },
 
@@ -67,12 +75,15 @@ reducers: {
         state.error     = null;
       })
       .addCase(
-        fetchAppointments.fulfilled,
-        (state, action: PayloadAction<Appointment[]>) => {
-          state.isLoading = false;
-          state.items     = action.payload;
-        }
-      )
+  fetchAppointments.fulfilled,
+  (state, action: PayloadAction<Appointment[]>) => {
+    state.isLoading = false;
+    // Only set items if store is empty — never overwrite existing data
+    if (state.items.length === 0) {
+      state.items = action.payload;
+    }
+  }
+)
       .addCase(fetchAppointments.rejected, (state, action) => {
         state.isLoading = false;
         state.error     = action.payload ?? 'Something went wrong.';
