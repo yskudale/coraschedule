@@ -3,8 +3,7 @@
 // The "auth drawer" in the central store.
 // Manages: user, token, loading, error state.
 // ============================================
-import client from '@/api/client';
-import { ENDPOINTS } from '@/api/endpoints';
+import type { AppDispatch } from '@/store';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { AuthState, LoginCredentials, LoginResponse, User } from './types/index';
@@ -48,17 +47,44 @@ export const loginUser = createAsyncThunk<LoginResponse, LoginCredentials, { rej
 }
 );
 
-// ─── Initial State ────────────────────────────────────────────────────────────
-const storedToken = localStorage.getItem(STORAGE_KEYS.TOKEN);
-const storedUser  = localStorage.getItem(STORAGE_KEYS.USER);
-
-const initialState: AuthState = {
-  user:            storedUser ? (JSON.parse(storedUser) as User) : null,
-  token:           storedToken ?? null,
-  isAuthenticated: !!storedToken,
-  isLoading:       false,
-  error:           null,
+export const logoutUser = () => (dispatch: AppDispatch) => {
+  localStorage.removeItem(STORAGE_KEYS.TOKEN);
+  localStorage.removeItem(STORAGE_KEYS.USER);
+  dispatch(logout());
 };
+
+// ─── Initial State ────────────────────────────────────────────────────────────
+// ─── loadAuthFromStorage — reads persisted session safely ──────────────────
+// Wrapped in a function instead of running at module-parse time.
+// This means it only executes when the store is actually created,
+// and the try/catch protects against corrupted or malformed
+// localStorage data crashing the entire app on load.
+function loadAuthFromStorage(): AuthState {
+  try {
+    const storedToken = localStorage.getItem(STORAGE_KEYS.TOKEN);
+    const storedUser  = localStorage.getItem(STORAGE_KEYS.USER);
+
+    return {
+      user:            storedUser ? (JSON.parse(storedUser) as User) : null,
+      token:           storedToken ?? null,
+      isAuthenticated: !!storedToken,
+      isLoading:       false,
+      error:           null,
+    };
+  } catch {
+    // Corrupted JSON, localStorage unavailable (SSR/tests), etc —
+    // fall back to a clean logged-out state instead of crashing.
+    return {
+      user:            null,
+      token:           null,
+      isAuthenticated: false,
+      isLoading:       false,
+      error:           null,
+    };
+  }
+}
+
+const initialState: AuthState = loadAuthFromStorage();
 
 // ─── The Slice ────────────────────────────────────────────────────────────────
 const authSlice = createSlice({
@@ -67,12 +93,10 @@ const authSlice = createSlice({
 
   reducers: {
     logout(state) {
-      state.user            = null;
-      state.token           = null;
+      state.user = null;
+      state.token = null;
       state.isAuthenticated = false;
-      state.error           = null;
-      localStorage.removeItem(STORAGE_KEYS.TOKEN);
-      localStorage.removeItem(STORAGE_KEYS.USER);
+      state.error = null;
     },
     clearError(state) {
       state.error = null;

@@ -12,14 +12,18 @@ import { useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { fetchAppointments } from '@/features/appointments/appointmentsSlice';
 import { Calendar, Clock, CheckCircle, XCircle, Activity } from 'lucide-react';
+import { StatusBadge } from '@/components/ui/StatusBadge';
 import styles from './DashboardPage.module.scss';
+
+
+const ITEMS_PER_PAGE = 5;
 
 export default function DashboardPage() {
   const dispatch = useAppDispatch();
   const user     = useAppSelector((state) => state.auth.user);
   const { items, isLoading } = useAppSelector((state) => state.appointments);
-  const ITEMS_PER_PAGE = 5;
   const [currentPage, setCurrentPage] = useState(1);
+
 
   // Fetch appointments if not already loaded
   useEffect(() => {
@@ -83,16 +87,7 @@ const paginatedAppointments = useMemo(() => {
     },
   ];
 
-  // ── Badge helper ──────────────────────────────────────────────────────────
-  const getBadgeClass = (status: string) => {
-    const map: Record<string, string> = {
-      scheduled:     styles['badge__scheduled'],
-      completed:     styles['badge__completed'],
-      cancelled:     styles['badge__cancelled'],
-      'in-progress': styles['badge__inProgress'],
-    };
-    return `${styles.badge} ${map[status] ?? ''}`;
-  };
+
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
@@ -167,9 +162,7 @@ const paginatedAppointments = useMemo(() => {
                     <td className={styles.therapyType}>{apt.therapyType}</td>
                     <td>{apt.therapistName}</td>
                     <td>
-                      <span className={getBadgeClass(apt.status)}>
-                        {apt.status}
-                      </span>
+                      <StatusBadge status={apt.status} />
                     </td>
                   </tr>
                 ))}

@@ -11,8 +11,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import type { AppointmentsState, Appointment } from './types/index';
 import { MOCK_APPOINTMENTS } from './mock/appointments';
 import { MOCK_DELAY_MS } from '@/constants';
-import client from '@/api/client';
-import { ENDPOINTS } from '@/api/endpoints';
+
 
 // ─── Async Thunk: fetchAppointments ──────────────────────────────────────────
 // Simulates an API call to load appointments.
